@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>滚动条</title>
+        <style>
+            *{
+                margin:0;
+                padding:0;
+            }
+            #container{
+                height:400px;
+                width:200px;
+                background: dimgrey;
+                position:relative;
+                overflow:hidden;
+            }
+            #content{
+                position:absolute;
+                width:180px;
+                left:0px;
+                top:0;
+                background-color: burlywood;
+            }
+            #stroll-bar{
+                height:400px;
+                width:20px;
+                position:absolute;
+                right:0;
+                top:0;
+            }
+            #stroll-btn{
+                position:absolute;
+                right:0;
+                top:0;
+                height:20px;
+                width:20px;
+                background-color: brown;
+                cursor:pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div id="content" >文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档
+                文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档
+                文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档
+                文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档
+                文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档文档
+            </div>
+            <div id="stroll-bar" >
+                <div id="stroll-btn"></div>
+            </div>
+        </div>
+        <script>
+            (function(){
+                var oStrollBtn = document.getElementById("stroll-btn");
+                var oStrollBar = document.getElementById("stroll-bar");
+                var oContainer = document.getElementById("container");
+                var oContent = document.getElementById("content");
+                oStrollBtn.onmousedown = function(e){
+                    e = e||window.event;
+                    var top = e.clientY - oStrollBtn.offsetTop;
+                    document.onmousemove = function(e){
+                        e = e||window.event;
+                        var iDisY = e.clientY - top;
+                        if(iDisY < 0){
+                            iDisY = 0;
+                        }else if(iDisY > oStrollBar.offsetHeight - oStrollBtn.offsetHeight){
+                            iDisY = oStrollBar.offsetHeight - oStrollBtn.offsetHeight;
+                        }
+                        oStrollBtn.style.top = iDisY + "px";
+                         var scale = oStrollBtn.offsetTop/(oStrollBar.offsetHeight - oStrollBtn.offsetHeight);
+                         var iTop = scale * (oContent.offsetHeight - oContainer.offsetHeight);
+                        oContent.style.top = -iTop + "px";
+                        return false;
+                    };
+                };
+                document.onmouseup = function(){
+                       document.onmousemove = null;
+                };
+            })()
+        </script>
+    </body>
+</html>
