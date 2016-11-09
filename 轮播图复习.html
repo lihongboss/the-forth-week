@@ -70,6 +70,12 @@
     </head>
     <body>
         <div id="container">
+            <div id="content">
+                <img class="selected"  src="img1/1.jpg"/>
+                <img src="img1/2.jpg"/>
+                <img src="img1/3.jpg"/>
+                <img src="img1/4.jpg"/>
+            </div>
             <div>
                 <ul id="tab">
                     <li class="selected">1</li>
@@ -78,12 +84,6 @@
                     <li>4</li>
                 </ul>
             </div>
-            <div id="content">
-                <img class="selected"  src="img1/1.jpg"/>
-                <img src="img1/2.jpg"/>
-                <img src="img1/3.jpg"/>
-                <img src="img1/4.jpg"/>
-            </div>
             <div id="arrow">
                 <span id="prev">&lt;</span>
                 <span id="next">&gt;</span>
@@ -91,6 +91,7 @@
         </div>
         <script>
             (function(){
+                var oContainer = document.getElementById("container");
                 var oTab = document.getElementById("tab");
                 var aLi = oTab.getElementsByTagName("li");
                 var oContent = document.getElementById("content");
@@ -98,6 +99,7 @@
                 var oPrev = document.getElementById("prev");
                 var oNext = document.getElementById("next");
                 var iNow = 0;
+                var timer;
                 for (var i = 0; i < aLi.length; i++) {
                     aLi[i].index = i;
                     aLi[i].onmouseover = function () {
@@ -124,6 +126,17 @@
                         iNow =  iNow + aLi.length;;
                     }
                     changeImg(iNow);
+                };
+                timer = setInterval(function(){
+                    oNext.onclick();
+                },1000);
+                oContainer.onmouseover = function(){
+                    clearInterval(timer);
+                };
+                oContainer.onmouseout = function(){
+                    timer = setInterval(function(){
+                        oNext.onclick();
+                    },1000);
                 };
             })()
         </script>
