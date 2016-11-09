@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>滚动条</title>
+        <style>
+            *{
+                margin:0;
+                padding:0;
+            }
+            #container{
+                height:500px;
+                width:300px;
+                background-color: dimgray;
+                position:relative;overflow:hidden;
+            }
+            #content{
+                position:absolute;
+                left:0;
+                top:0;
+                width:280px;
+                background-color: bisque;
+
+            }
+            #stroll-bar{
+                position:absolute;
+                width: 20px;
+                height: 500px;
+                right:0;
+                top:0;
+            }
+            #drag{
+                height:20px;
+                width:20px;
+                background-color: chartreuse;
+                cursor: pointer;
+                position:absolute;
+
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div id="content">
+                实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验
+                实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验
+                实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验
+                实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验
+                实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验
+                实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验
+                实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验
+                实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验
+                实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验实验
+            </div>
+            <div id="stroll-bar">
+                <div id="drag"></div>
+            </div>
+        </div>
+        <script>
+            (function(){
+                var oDrag = document.getElementById("drag");
+                var oStrollBar = document.getElementById("stroll-bar");
+                oDrag.onmousedown = function (e){
+                    e = e||window.event;
+                    var top = e.clientY - oDrag.offsetTop;
+                    document.onmousemove = function(e){
+                        e = e||window.event;
+                        var iTop = e.clientY - top;
+                        if(iTop < 0){
+                            iTop = 0;
+                        }
+                        if(iTop > oStrollBar.offsetHeight - oDrag.offsetHeight){
+                            iTop =  oStrollBar.offsetHeight - oDrag.offsetHeight;
+                        }
+                        oDrag.style.top = iTop + "px";
+                        return false;
+                    };
+                };
+                oStrollBar.onmouseup = function(){
+                      document.onmousemove = null;
+                };
+            })()
+        </script>
+    </body>
+</html>
