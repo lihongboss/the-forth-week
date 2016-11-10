@@ -23,6 +23,8 @@
                 width:115px;
                 background: #ccc;
                 position:absolute;
+                left:0;
+                top:0;
                 cursor:pointer;
                 opacity:0.5;
                 filter:alpha(opacity = 50);
@@ -32,8 +34,9 @@
                 height:230px;
                 width:230px;
                 float:left;
-                overflow:hidden;
+                position:relative;
                 display:none;
+                overflow:hidden;
             }
             #big-img{
                 height:460px;
@@ -53,19 +56,19 @@
             </div>
         </div>
         <script>
-
+                window.onload = function(){
                 var oDrag = document.getElementById("drag");
                 var oSmallBox = document.getElementById("small-box");
                 var oBigBox = document.getElementById("big-box");
                 var oBigImg = document.getElementById("big-img");
                 oSmallBox.onmouseover = function(){
                     oDrag.style.display = "block";
-                    oBigBox.style.display = "block";
+                   oBigBox.style.display = "block";
                 };
                 oSmallBox.onmousemove = function(e){
                     e = e || window.event;
                     var iLeft = e.clientX - oDrag.offsetWidth/2;
-                    var iTop = e.clientY - oDrag.offsetWidth/2;
+                    var iTop = e.clientY - oDrag.offsetHeight/2;
                     if(iLeft < 0){
                         iLeft = 0;
                     }else if(iLeft > oSmallBox.offsetWidth - oDrag.offsetWidth ){
@@ -76,20 +79,21 @@
                     }else if(iTop > oSmallBox.offsetHeight - oDrag.offsetHeight ){
                         iTop = oSmallBox.offsetHeight - oDrag.offsetHeight;
                     }
-                    var scaleX = iLeft / (oSmallBox.offsetWidth - oDrag.offsetWidth);
-                    var scaleY = iTop / oSmallBox.offsetHeight - oDrag.offsetHeight;
+                    var scaleX = iLeft/( oSmallBox.offsetWidth - oDrag.offsetWidth);
+                    var scaleY = iTop/(oSmallBox.offsetHeight - oDrag.offsetHeight);
                     var bLeft = scaleX * (oBigImg.offsetWidth - oBigBox.offsetWidth);
                     var bTop = scaleY * (oBigImg.offsetHeight - oBigBox.offsetHeight);
-                    oBigImg.style.left =-bLeft + "px";
+                    oBigImg.style.left = -bLeft + "px";
                     oBigImg.style.top = -bTop + "px";
                     oDrag.style.left = iLeft  + "px";
                     oDrag.style.top = iTop + "px";
+
                 };
                 oSmallBox.onmouseout = function(){
                     oDrag.style.display = "none";
                     oBigBox.style.display = "none";
                 };
-
+                };
         </script>
     </body>
 </html>
